@@ -71,7 +71,6 @@ $(function(){
     $(document).on('click', function(e){
         var relTarg = e.relatedTarget || e.toElement;
         if(!$(relTarg).hasClass('dropdown-toggle') && !$(relTarg).closest('.dropdown').length){
-            console.log($(relTarget).closest('.dropdown'));
             $('.dropdown').removeClass('open');
         }
     });
