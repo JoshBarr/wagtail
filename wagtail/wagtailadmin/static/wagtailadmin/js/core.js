@@ -69,8 +69,8 @@ $(function(){
 
     /* close all dropdowns on body clicks */
     $(document).on('click', function(e){
-        var relTarg = e.relatedTarget || e.toElement;
-        if(!$(relTarg).hasClass('dropdown-toggle') && !$(relTarg).closest('.dropdown').length){
+        var targ = e.target;
+        if(!$(targ).hasClass('dropdown-toggle') && !$(targ).closest('.dropdown').length){
             $('.dropdown').removeClass('open');
         }
     });
