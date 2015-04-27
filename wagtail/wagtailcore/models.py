@@ -988,10 +988,16 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return TemplateResponse(request, self.password_required_template, context)
 
 
-def get_navigation_menu_items():
+def get_navigation_menu_items(page_id):
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
+    # pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
+
+    # if page_id is 0:
+    # pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
     pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
+    # else:
+    #     pages = Page.objects.filter(id=page_id)
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)

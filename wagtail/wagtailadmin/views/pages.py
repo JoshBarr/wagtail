@@ -21,12 +21,37 @@ from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_i
 from wagtail.wagtailcore.validators import validate_not_whitespace
 
 from wagtail.wagtailadmin import messages
+import json
 
 
-def explorer_nav(request):
-    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
-        'nodes': get_navigation_menu_items(),
-    })
+def explorer_nav(request, page_id='0'):
+    """ Returns a JSON object representing the nav in a nested tree
+    """
+    nodes = get_navigation_menu_items(int(page_id))
+    arr = {'children': [], 'title': 'root'}
+
+    def serial(node):
+        children = []
+
+        if len(node) > 1:
+            for child in node[1]:
+                children.append(serial(child))
+
+        page = {
+            'title': node[0].title,
+            'url': reverse('wagtailadmin_explore', args=[node[0].id]),
+            'slug': node[0].url,
+            'id': node[0].id,
+            'status': unicode(node[0].status_string),
+            'children': children
+        }
+
+        return page
+
+    for n in nodes:
+        arr['children'].append(serial(n))
+
+    return HttpResponse(json.dumps(arr), content_type='application/json')
 
 
 def index(request, parent_page_id=None):

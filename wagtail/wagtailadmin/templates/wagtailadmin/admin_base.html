@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block js %}
-    
+
     {% compress js %}
         <script src="{% static 'wagtailadmin/js/vendor/jquery-1.10.3.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.10.3.js' %}"></script>
@@ -22,8 +22,9 @@
         <script src="{% static 'wagtailadmin/js/vendor/bootstrap-tab.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/vendor/jquery.dlmenu.js' %}"></script>
         <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/explorer-dist.js' %}"></script>
         {% main_nav_js %}
     {% endcompress %}
-    
+
     {% block extra_js %}{% endblock %}
 {% endblock %}

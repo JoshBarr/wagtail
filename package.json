@@ -1,0 +1,17 @@
+{
+  "name": "wagtail",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babelify": "*",
+    "browserify": "^9.0.8",
+    "gulp": "*",
+    "react": "*",
+    "watchify": "^3.1.2"
+  },
+  "scripts": {
+    "explorer": "./node_modules/.bin/watchify wagtail/wagtailadmin/static/wagtailadmin/js/explorer.js -o wagtail/wagtailadmin/static/wagtailadmin/js/explorer-dist.js -v"
+  },
+  "browserify": {
+    "transform": [ "babelify" ]
+  }
+}
