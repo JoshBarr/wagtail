@@ -516,9 +516,15 @@ footer,
     height: 100%;
     display: table-cell;
     border-right: solid 1px #ddd;
-    box-shadow: -3px 0 3px rgba(0,0,0,.08);
     background: #efefef;
+    vertical-align: top;
 }
+
+.explorer-child-viewer,
+.explorer-node {
+    box-shadow: -3px 0 3px rgba(0,0,0,.08);
+}
+
 
 .explorer-card {
     padding: 1.5em 2.5em 1.5em 3.5em;
@@ -619,6 +625,33 @@ footer,
             margin-left: 1em;
         }
     }
+}
+
+.explorer-child-viewer {
+    padding: 2em;
+    display: table-cell;
+    // color: #fff;
+    vertical-align: top;
+    height: 100%;
+    background: #D9DBDB;
+    width: 100%;
+    min-width: 30em;
+    // position: absolute;
+    // top: 96px;
+    // left: 0;
+    //
+    h3 {
+        margin-top: 0;
+    }
+}
+
+.explorer-child-item {
+    background: #fff;
+    color: #333;
+    border-radius: .25em;
+    padding: 1em 2em;
+    margin-bottom: 1em;
+    max-width: 30em;
 }
 
 .badge {

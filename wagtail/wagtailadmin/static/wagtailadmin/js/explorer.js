@@ -15,12 +15,13 @@ var Card = React.createClass({
         }
 
         return (
-            <div className={classes.join(' ')} onClick={this.props.clickHandler}>
-                <a className='explorer-card-heading icon icon-folder-open-inverse' href="#">
+            <div className={classes.join(' ')}>
+                <a className='explorer-card-heading icon icon-folder-open-inverse' href="#"  onClick={this.props.clickHandler}>
                     {data.title}
                     <StatusIndicator data={data} />
                 </a>
-                    <span className='icon icon-arrow-right'></span>
+                <span className='icon icon-arrow-right'></span>
+                <p onClick={this.props.pageHandler}>{data.childPages.length ? 'Hide' : 'Show' } childpages</p>
             </div>
         );
     }
@@ -31,14 +32,22 @@ var Node = React.createClass({
     selectNode(item) {
         this.props.store.addActive(item);
     },
+    showChildren(item) {
+        this.props.store.showChildren(item);
+    },
     render() {
         const { data } = this.props;
         var children = [];
+        var store = this.props.store;
 
         if (data.children) {
             children = data.children.map(function(item, index) {
                 return (
-                    <Card store={this.props.store} key={index} data={item} clickHandler={this.selectNode.bind(this, item)} />
+                    <Card
+                        store={store}
+                        key={index} data={item}
+                        pageHandler={this.showChildren.bind(this, item)}
+                        clickHandler={this.selectNode.bind(this, item)} />
                 );
             }, this);
         }
@@ -53,9 +62,41 @@ var Node = React.createClass({
 
 var ColumnView = React.createClass({
     render() {
+        var length = this.props.data.length-1;
+
         var children = this.props.data.map(function(item, index) {
             return <Node data={item} key={index} store={this.props.store} />
         }, this);
+
+        var last = this.props.data[length];
+
+        var store = this.props.store;
+        var explorerState = store.getState();
+        var childView = null;
+
+        if (last && last.childPages.length) {
+            // if (length > 0) {
+            children.pop();
+            // }
+            childView = (
+                <div className='explorer-child-viewer' key={children.length}>
+                    <h3>Children of <strong>{last.title}</strong></h3>
+                    {last.childPages.map(function(item, index) {
+                        return (<div className='explorer-child-item' key={index}>
+                            <p>
+                                <a href={item.url}>{item.title}</a>
+                                <StatusIndicator data={item} />
+                            </p>
+
+                        </div>)
+                    }, this)}
+                    <p className='explorer-see-all'>
+                        <a href={last.url}>See all...</a>
+                    </p>
+                </div>
+            )
+            children.push(childView);
+        }
 
         return (
             <div className='explorer-column-view'>
@@ -236,6 +277,8 @@ var Explorer = React.createClass({
                 break;
         }
 
+
+
         return (<div className='explorer-ui clearfix'>
                 <div className='explorer-pathbar'>
                     {breadcrumb}
@@ -271,6 +314,8 @@ class Store extends EventEmitter {
         super()
         this.data = [];
         this.viewType = "ColumnView";
+        this.childPages = [];
+        this.childViewer = false;
     }
     fetch(url) {
         this.url = url;
@@ -281,6 +326,7 @@ class Store extends EventEmitter {
                     item.parent = node;
                     return addParentReferences(item);
                 });
+                node.childPages = [];
             }
             return node;
         }
@@ -300,7 +346,9 @@ class Store extends EventEmitter {
     getState() {
         return {
             isActive: this.isActive,
-            viewType: this.viewType
+            viewType: this.viewType,
+            childPages: this.childPages,
+            childViewer: this.childViewer
         }
     }
 
@@ -321,13 +369,36 @@ class Store extends EventEmitter {
         this.emit('change');
     }
 
-    addActive(item) {
+    addActive(item, silent) {
         var index = this.active.indexOf(item);
         this.active = this.getPathFor(item);
+        this.childViewer = false;
         if (index > -1) {
+            item.childPages = [];
             this.active.splice(index, 1);
         }
+        if (silent) {
+            return;
+        }
         this.emit('change');
+    }
+    showChildren(item) {
+        var url = "/admin/api/pages/" + item.id + "/children";
+
+        if (!item.childPages.length) {
+            $.get(url, function(result) {
+
+                if (this.active.indexOf(item) < 0) {
+                    this.addActive(item, true);
+                }
+
+                item.childPages = result;
+                this.emit('change');
+            }.bind(this));
+        } else {
+            item.childPages = [];
+            this.emit('change');
+        }
     }
     closeMenu() {
         this.isActive = false;

@@ -24,6 +24,23 @@ from wagtail.wagtailadmin import messages
 import json
 
 
+def explorer_children(request, page_id='0'):
+    page = Page.objects.get(id=page_id)
+    children = page.get_children()
+    nodes = []
+
+    for child in children:
+        nodes.append({
+            'title': child.title,
+            'slug': child.url,
+            'url': reverse('wagtailadmin_explore', args=[child.id]),
+            'id': child.id,
+            'status': unicode(child.status_string)
+        })
+
+    return HttpResponse(json.dumps(nodes), content_type='application/json')
+
+
 def explorer_nav(request, page_id='0'):
     """ Returns a JSON object representing the nav in a nested tree
     """

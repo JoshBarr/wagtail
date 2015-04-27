@@ -16,6 +16,8 @@ urlpatterns = [
 
     url(r'^api/explorer/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
     url(r'^api/explorer/(?P<page_id>[0-9]+)/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
+    url(r'^api/pages/(?P<page_id>[0-9]+)/children$', pages.explorer_children, name='wagtailadmin_explorer_children'),
+    url(r'^api/pages/(?P<page_id>[0-9]+)/children/$', pages.explorer_children, name='wagtailadmin_explorer_children'),
 
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
