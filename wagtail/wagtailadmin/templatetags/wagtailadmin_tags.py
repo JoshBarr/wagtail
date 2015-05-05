@@ -37,10 +37,20 @@ def main_nav(context):
         'request': request,
     }
 
+
+@register.inclusion_tag('wagtailadmin/shared/icon.html')
+def icon(icon, className='', title='Icon'):
+    return {
+        'sprite': 'wagtailadmin/icons/wagtail.svg',
+        'icon': icon,
+        'title': title,
+        'className': className
+    }
+
+
 @register.simple_tag
 def main_nav_js():
     return admin_menu.media['js']
-
 
 @register.filter("ellipsistrim")
 def ellipsistrim(value, max_length):

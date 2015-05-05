@@ -16,7 +16,8 @@ def register_explorer_menu_item():
     return ExplorerMenuItem(
         _('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'),
         name='explorer',
-        classnames='icon icon-folder-open-inverse dl-trigger',
+        classnames='dl-trigger',
+        icon='folder-open-inverse',
         attrs={'data-explorer-menu-url': urlresolvers.reverse('wagtailadmin_explorer_nav')},
         order=100)
 
@@ -24,7 +25,7 @@ def register_explorer_menu_item():
 @hooks.register('register_admin_menu_item')
 def register_settings_menu():
     return SubmenuMenuItem(
-        _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)
+        _('Settings'), settings_menu, icon='cogs', order=10000)
 
 
 @hooks.register('register_permissions')

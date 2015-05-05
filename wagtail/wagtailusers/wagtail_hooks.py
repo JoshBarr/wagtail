@@ -24,11 +24,11 @@ class AuthMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_users_menu_item():
-    return AuthMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users_index'), classnames='icon icon-user', order=600)
+    return AuthMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users_index'), icon='user', order=600)
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
-    return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups_index'), classnames='icon icon-group', order=601)
+    return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups_index'), icon='group', order=601)
 
 
 @hooks.register('register_permissions')

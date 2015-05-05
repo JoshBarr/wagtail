@@ -14,12 +14,13 @@ from wagtail.wagtailcore import hooks
 class MenuItem(with_metaclass(MediaDefiningClass)):
     template = 'wagtailadmin/shared/menu_item.html'
 
-    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
+    def __init__(self, label, url, name=None, classnames='', icon='', attrs=None, order=1000):
         self.label = label
         self.url = url
         self.classnames = classnames
         self.name = (name or slugify(text_type(label)))
         self.order = order
+        self.icon = icon
 
         if attrs:
             self.attr_string = flatatt(attrs)
@@ -41,6 +42,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
+            'icon': self.icon,
             'attr_string': self.attr_string,
             'label': self.label,
             'active': self.is_active(request)
@@ -122,6 +124,7 @@ class SubmenuMenuItem(MenuItem):
             'attr_string': self.attr_string,
             'menu_html': self.menu.render_html(request),
             'label': self.label,
+            'icon': self.icon,
             'request': request,
             'active': self.is_active(request)
         }, request=request)

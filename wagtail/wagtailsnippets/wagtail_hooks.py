@@ -26,7 +26,7 @@ class SnippetsMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_snippets_menu_item():
-    return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
+    return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), icon='snippet', order=500)
 
 
 @hooks.register('insert_editor_js')

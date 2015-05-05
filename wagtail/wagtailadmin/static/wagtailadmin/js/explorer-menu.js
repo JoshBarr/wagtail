@@ -14,9 +14,12 @@ $(function() {
             return false;
         } else {
             if (!$explorer.children().length) {
-                $this.addClass('icon-spinner');
+                var spinner = $this.get(0).querySelector('.spinner');
+                var $spinner = $(spinner);
+                spinner.classList.add('spinner-active');
+
                 $explorer.load($this.data('explorer-menu-url'), function() {
-                    $this.removeClass('icon-spinner');
+                    spinner.classList.remove('spinner-active');
 
                     $explorer.addClass('dl-menuwrapper').dlmenu({
                         animationClasses: {

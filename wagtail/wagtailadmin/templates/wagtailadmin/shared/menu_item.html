@@ -1,3 +1,11 @@
+{% load wagtailadmin_tags %}
+
 <li class="menu-item menu-{{ name }}{% if active %} menu-active{% endif %}">
-    <a href="{{ url }}" class="{{ classnames }}"{{ attr_string }}>{{ label }}</a>
+    <a href="{{ url }}" class="{{ classnames }}"{{ attr_string }}>
+        {% icon icon %}
+        {{ label }}
+        {% if classnames == 'dl-trigger' %}
+        {% icon 'spinner' 'spinner' %}
+        {% endif %}
+    </a>
 </li>

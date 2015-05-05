@@ -1,12 +1,15 @@
 {% load wagtailadmin_tags %}
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}">
+
     {{ field.label_tag }}
     <div class="field-content">
         <div class="input {{ input_classes }} ">
+            {% if icon %}{% icon icon %}{% endif %}
+
             {% block form_field %}
                 {{ field|render_with_errors }}
             {% endblock %}
-            
+
             {# This span only used on rare occasions by certain types of input #}
             <span></span>
         </div>

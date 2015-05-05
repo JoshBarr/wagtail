@@ -1,6 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
-<li class="icon icon-doc-full-inverse">
+<li class="">
+    {% icon 'doc-full-inverse' 'large' %}
     <a href="{% url 'wagtaildocs_index' %}">
     {% blocktrans count counter=total_docs with total_docs|intcomma as total %}
         <span>{{ total }}</span> Document

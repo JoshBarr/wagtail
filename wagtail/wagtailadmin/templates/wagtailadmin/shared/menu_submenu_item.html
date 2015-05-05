@@ -1,7 +1,17 @@
+{% load wagtailadmin_tags %}
+
 <li class="menu-item menu-{{ name }}{% if active %} menu-active{% endif %}">
-    <a href="#" class="submenu-trigger {{ classnames }}"{{ attr_string }}>{{ label }}</a>
+    <a href="#" class="submenu-trigger {{ classnames }}"{{ attr_string }}>
+        {% icon icon 'left' %}
+        {{ label }}
+        {% icon 'arrow-right' 'right' %}
+    </a>
     <div class="nav-submenu">
-        <h2 class="{{ classnames }}">{{ label }}</h2>
+
+        <h2 class="{{ classnames }}">
+            {% icon icon 'large' %}
+            {{ label }}
+        </h2>
         <ul>{{ menu_html }}</ul>
     </div>
 </li>
