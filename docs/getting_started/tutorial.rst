@@ -52,7 +52,7 @@ Out of the box, the "home" app defines a blank ``HomePage`` model in ``models.py
 
 Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
-.. code:: python
+.. code-block:: python
 
     from __future__ import unicode_literals
 
@@ -88,7 +88,7 @@ by separating capital letters with underscores (e.g. HomePage becomes
 home\_page.html). Edit
 ``home/templates/home/home_page.html`` to contain the following:
 
-.. code:: html+django
+.. code-block:: html+django
 
     {% extends "base.html" %}
 
@@ -113,7 +113,7 @@ Add the new ``blog`` app to ``INSTALLED_APPS`` in ``mysite/settings/base.py``.
 
 The following example defines a basic blog post model in ``blog/models.py``:
 
-.. code:: python
+.. code-block:: python
 
     from django.db import models
 
@@ -141,7 +141,7 @@ The following example defines a basic blog post model in ``blog/models.py``:
 
 Create a template at ``blog/templates/blog/blog_page.html``:
 
-.. code:: html+django
+.. code-block:: html+django
 
     {% extends "base.html" %}
 
@@ -172,7 +172,7 @@ Image support
 Wagtail provides support for images out of the box. To add them to your
 model:
 
-.. code:: python
+.. code-block:: python
 
     from django.db import models
 
@@ -211,7 +211,7 @@ Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 Adjust your blog page template to include the image:
 
-.. code:: html+django
+.. code-block:: html+django
 
     {% extends "base.html" %}
 
@@ -243,7 +243,7 @@ Blog Index
 
 Let us extend the Blog app to provide an index.
 
-.. code:: python
+.. code-block:: python
 
     class BlogIndexPage(Page):
         intro = RichTextField(blank=True)
@@ -256,7 +256,7 @@ The above creates an index type to collect all our blog posts.
 
 ``blog/templates/blog/blog_index_page.html``
 
-.. code:: html+django
+.. code-block:: html+django
 
     {% extends "base.html" %}
 
@@ -276,7 +276,7 @@ Related items
 Let's extend the BlogIndexPage to add related links. The related links
 can be BlogPages or external links. Change ``blog/models.py`` to
 
-.. code:: python
+.. code-block:: python
 
     from django.db import models
 
@@ -349,7 +349,7 @@ can be BlogPages or external links. Change ``blog/models.py`` to
 
 Extend ``blog_index_page.html`` to show related items
 
-.. code:: html+django
+.. code-block:: html+django
 
     {% extends "base.html" %}
 
